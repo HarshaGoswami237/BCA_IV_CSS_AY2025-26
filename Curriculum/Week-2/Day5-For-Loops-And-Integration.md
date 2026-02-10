@@ -633,6 +633,116 @@ When you're ready to move on, Week 3 covers:
 
 ---
 
+## 📝 Experiment 24: Generate a Random Number Between Two Numbers
+
+**Objective:** Generate random integers within a specified range [min, max]  
+**Mandatory Practical Requirement:** Official Experiment #24 (Unit 2)  
+**Learning:** Using Math.random() with range calculations
+
+<details>
+  <summary><strong>Click to reveal solutions</strong></summary>
+
+### Method 1: Manual Calculation (Without Built-in Functions)
+
+```javascript
+// Experiment 24: Generate random number between min and max
+// Method 1: Using Math.random() with arithmetic
+
+const min = 1;
+const max = 10;
+
+// Step-by-step calculation:
+// Math.random() gives 0.0 to 0.999...
+// Multiply by (max - min + 1) to get 0 to range
+// Add min to shift to desired range
+// Use Math.floor() to get integer
+
+const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+
+console.log("Random number between " + min + " and " + max + ": " + randomNum);
+
+// Example outputs (varies each time):
+// Random number between 1 and 10: 7
+// Random number between 1 and 10: 3
+// Random number between 1 and 10: 9
+```
+
+**How It Works:**
+```javascript
+// For range 1-10:
+Math.random()                           // 0.5234... (example)
+Math.random() * (10 - 1 + 1)           // 0.5234 * 10 = 5.234
+Math.floor(5.234)                       // 5
+5 + 1                                   // 6 (final result in range 1-10)
+
+// Another example:
+Math.random() * 10 = 0.123...
+Math.floor(0.123) = 0
+0 + 1 = 1 (minimum value in range)
+```
+
+### Method 2: Using a Reusable Function (Smart Way)
+
+```javascript
+// Experiment 24: Random number generator function
+// Method 2: Encapsulated in a function for reusability
+
+function generateRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Or as arrow function:
+const randomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+// Usage:
+console.log("Random 1-10: " + generateRandomNumber(1, 10));
+console.log("Random 50-100: " + generateRandomNumber(50, 100));
+console.log("Random -10 to 10: " + generateRandomNumber(-10, 10));
+
+// Real-world example: Dice roller
+const rollDice = () => generateRandomNumber(1, 6);
+console.log("Dice roll: " + rollDice());  // 1-6
+```
+
+### Test Cases
+
+```javascript
+// Generate multiple random numbers to verify distribution
+console.log("Generating 10 random numbers between 1 and 10:");
+for (let i = 1; i <= 10; i++) {
+    const random = Math.floor(Math.random() * 10) + 1;
+    console.log("Iteration " + i + ": " + random);
+}
+
+console.log("\nGenerating random numbers in different ranges:");
+
+// Range 50-100
+console.log("\nRange 50-100:");
+for (let i = 0; i < 5; i++) {
+    const random = Math.floor(Math.random() * 51) + 50;
+    console.log("- " + random);
+}
+
+// Range 1-100 (Lottery-like)
+console.log("\nRange 1-100 (5 lottery numbers):");
+for (let i = 0; i < 5; i++) {
+    const random = Math.floor(Math.random() * 100) + 1;
+    console.log("Ticket " + (i + 1) + ": " + random);
+}
+
+// Using the reusable function
+console.log("\nUsing reusable function:");
+const getRandomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+console.log("Random(1-10): " + getRandomInRange(1, 10));
+console.log("Random(100-200): " + getRandomInRange(100, 200));
+console.log("Random(-5 to 5): " + getRandomInRange(-5, 5));
+```
+
+</details>
+
+---
+
 ## 📝 ASSIGNMENT SUBMISSION GUIDE
 
 ### File Naming Convention:
