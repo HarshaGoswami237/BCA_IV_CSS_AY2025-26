@@ -494,6 +494,199 @@ Evaluate password strength
 
 ---
 
+## 📝 Experiment 12: Replace Characters of a String
+
+**Objective:** Find and replace specific characters or substrings within a string  
+**Mandatory Practical Requirement:** Official Experiment #12 (Unit 3)  
+**Learning:** String searching and transformation
+
+<details>
+  <summary><strong>Click to reveal solutions</strong></summary>
+
+### Method 1: Manual Loop-Based Replacement (Without Built-ins)
+
+```javascript
+// Experiment 12: Replace characters in a string
+// Method 1: Using a loop to manually replace
+
+function replaceCharacters(str, oldChar, newChar) {
+    let result = "";
+    
+    // Go through each character
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === oldChar) {
+            result = result + newChar;  // Replace
+        } else {
+            result = result + str[i];   // Keep original
+        }
+    }
+    
+    return result;
+}
+
+console.log(replaceCharacters("hello world", "o", "0"));  // "hell0 w0rld"
+console.log(replaceCharacters("javascript", "a", "@"));   // "j@v@script"
+console.log(replaceCharacters("banana", "a", "i"));       // "binini"
+```
+
+### Method 2: Using Built-in replace() (Smart Way)
+
+```javascript
+// Experiment 12: Replace using built-in methods
+// Method 2: Using replace(), replaceAll()
+
+const str = "hello world hello";
+
+// replace() - replaces FIRST occurrence only
+console.log(str.replace("hello", "hi"));     // "hi world hello"
+
+// replaceAll() - replaces ALL occurrences
+console.log(str.replaceAll("hello", "hi"));  // "hi world hi"
+
+// Using with character/substring
+const text = "apple apple apricot apple";
+console.log(text.replaceAll("apple", "orange"));  // "orange orange apricot orange"
+
+// Case-insensitive replacement with regex (advanced):
+console.log("Hello HELLO hello".replaceAll(/hello/gi, "hi"));  // "hi hi hi"
+```
+
+### Test Cases
+
+```javascript
+// Test both methods
+const testCases = [
+    { str: "hello", oldChar: "l", newChar: "L", expected: "heLLo" },
+    { str: "banana", oldChar: "a", newChar: "i", expected: "binini" },
+    { str: "javascript", oldChar: "a", newChar: "@", expected: "j@v@script" },
+    { str: "abcabc", oldChar: "b", newChar: "B", expected: "aBcaBc" },
+];
+
+console.log("String Replacement Tests:");
+testCases.forEach(test => {
+    // Manual method
+    let result = "";
+    for (let i = 0; i < test.str.length; i++) {
+        result += (test.str[i] === test.oldChar) ? test.newChar : test.str[i];
+    }
+    const match = result === test.expected ? "✓" : "✗";
+    console.log(test.str + " -> " + result + " | Expected: " + test.expected + " | " + match);
+});
+```
+
+</details>
+
+---
+
+## 📝 Experiment 13: Reverse a String
+
+**Objective:** Reverse the order of characters in a string  
+**Mandatory Practical Requirement:** Official Experiment #13 (Unit 3)  
+**Learning:** String traversal and character ordering
+
+<details>
+  <summary><strong>Click to reveal solutions</strong></summary>
+
+### Method 1: Manual Backward Loop (Without Built-ins)
+
+```javascript
+// Experiment 13: Reverse a string
+// Method 1: Loop from end to start
+
+function reverseString(str) {
+    let reversed = "";
+    
+    // Start from last character and move backward
+    for (let i = str.length - 1; i >= 0; i--) {
+        reversed = reversed + str[i];
+    }
+    
+    return reversed;
+}
+
+console.log(reverseString("hello"));      // "olleh"
+console.log(reverseString("javascript")); // "tpircsaj"
+console.log(reverseString("madam"));      // "madam" (palindrome!)
+console.log(reverseString("12345"));      // "54321"
+```
+
+**How It Works:**
+```javascript
+// "hello" has length 5
+// Start at index 4 (last): "o"
+// Then index 3: "l"
+// Then index 2: "l"
+// Then index 1: "e"
+// Then index 0: "h"
+// Result: "olleh"
+```
+
+### Method 2: Using split(), reverse(), join() (Smart Way)
+
+```javascript
+// Experiment 13: Reverse using built-in array methods
+// Method 2: Convert to array, reverse, convert back
+
+function reverseString(str) {
+    return str.split("").reverse().join("");
+}
+
+// Or using arrow function:
+const reverseArrow = (str) => str.split("").reverse().join("");
+
+console.log(reverseString("hello"));        // "olleh"
+console.log(reverseString("javascript"));   // "tpircsaj"
+console.log(reverseArrow("world"));         // "dlrow"
+
+// Even shorter with implicit return:
+const reverse = str => [...str].reverse().join("");
+console.log(reverse("coding"));  // "gnidoc"
+```
+
+**Step-by-Step Breakdown:**
+```javascript
+const str = "hello";
+
+str.split("")           // ["h", "e", "l", "l", "o"]
+   .reverse()          // ["o", "l", "l", "e", "h"]
+   .join("")           // "olleh"
+```
+
+### Test Cases
+
+```javascript
+// Comprehensive reverse tests
+const testStrings = [
+    { str: "hello", expected: "olleh" },
+    { str: "abc", expected: "cba" },
+    { str: "a", expected: "a" },
+    { str: "", expected: "" },
+    { str: "12345", expected: "54321" },
+    { str: "racecar", expected: "racecar" },  // Palindrome!
+];
+
+console.log("String Reversal Tests:");
+testStrings.forEach(test => {
+    // Using method 1 (manual loop)
+    let reversed1 = "";
+    for (let i = test.str.length - 1; i >= 0; i--) {
+        reversed1 += test.str[i];
+    }
+    
+    // Using method 2 (built-in)
+    const reversed2 = test.str.split("").reverse().join("");
+    
+    const match1 = reversed1 === test.expected ? "✓" : "✗";
+    const match2 = reversed2 === test.expected ? "✓" : "✗";
+    
+    console.log("'" + test.str + "' -> '" + reversed1 + "' | " + match1);
+});
+```
+
+</details>
+
+---
+
 ## ✅ Checklist
 
 - [ ] Understand strings as character arrays
@@ -502,8 +695,8 @@ Evaluate password strength
 - [ ] Can extract substrings (slice, substring)
 - [ ] Can replace text
 - [ ] Understand split/join
-- [ ] Completed Experiment 13 (Palindrome)
-- [ ] Completed Experiment 14 (Replace)
+- [ ] Completed Experiment 12 (Replace Characters)
+- [ ] Completed Experiment 13 (Reverse String)
 - [ ] Completed Exercises 3.4-3.5
 - [ ] Challenge questions attempted
 
