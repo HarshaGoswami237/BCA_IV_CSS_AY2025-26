@@ -411,6 +411,234 @@ console.log("\n✅ File Manager System Ready!");
 
 ---
 
+## 🔬 MANDATORY PRACTICAL EXPERIMENT
+
+### ✅ **Experiment 23: JavaScript Program to Check If a Variable Is undefined or null**
+
+**MANDATORY PRACTICAL REQUIREMENT:** Official Experiment #23 (Unit 5)
+
+Identify and differentiate between undefined, null, and other falsy values. Implement safe property access.
+
+<details>
+<summary><b>Solution: Method 1 - Using Strict Equality Checks</b></summary>
+
+```javascript
+/*
+ * Experiment 23: Check undefined/null (Manual checking approach)
+ * Explicit checks for different validity states
+ */
+
+function isUndefined(value) {
+    return value === undefined;
+}
+
+function isNull(value) {
+    return value === null;
+}
+
+function isNullOrUndefined(value) {
+    return value === null || value === undefined;
+}
+
+function isEmpty(value) {
+    // Check for empty/falsy values
+    if (value === null || value === undefined) {
+        return true;
+    }
+    
+    if (typeof value === 'string') {
+        return value.trim().length === 0;  // Empty or whitespace string
+    }
+    
+    if (Array.isArray(value)) {
+        return value.length === 0;
+    }
+    
+    if (typeof value === 'object') {
+        return Object.keys(value).length === 0;  // Empty object
+    }
+    
+    return value === 0 || value === false;  // Falsy values
+}
+
+function isValidValue(value) {
+    // Returns true if value is anything other than undefined/null
+    return value !== null && value !== undefined;
+}
+
+function getValueInfo(value) {
+    return {
+        value: value,
+        type: typeof value,
+        isUndefined: isUndefined(value),
+        isNull: isNull(value),
+        isEmpty: isEmpty(value),
+        isValid: isValidValue(value)
+    };
+}
+
+// TEST CASES
+console.log("--- Test Case 1: Type Checks ---");
+const testValues = [undefined, null, 0, "", [], {}, false, "hello", 42];
+
+testValues.forEach(v => {
+    const info = getValueInfo(v);
+    console.log("Value: " + JSON.stringify(v) + 
+                " | undefined:" + info.isUndefined + 
+                " | null:" + info.isNull + 
+                " | empty:" + info.isEmpty);
+});
+
+console.log("\n--- Test Case 2: Safe Object Access ---");
+const user1 = {name: "Alice", email: null};
+const user2 = undefined;
+const user3 = {name: null, email: "bob@ex.com"};
+
+function safeGetUserEmail(user) {
+    if (isValidValue(user) && isValidValue(user.email)) {
+        return user.email;
+    }
+    return "No email provided";
+}
+
+console.log("User 1 email: " + safeGetUserEmail(user1));
+console.log("User 2 email: " + safeGetUserEmail(user2));
+console.log("User 3 email: " + safeGetUserEmail(user3));
+
+console.log("\n--- Test Case 3: Form Validation ---");
+function validateFormField(value, fieldName) {
+    if (isUndefined(value) || isNull(value)) {
+        return fieldName + " is required";
+    }
+    
+    if (isEmpty(value)) {
+        return fieldName + " cannot be empty";
+    }
+    
+    return null;  // Valid
+}
+
+const formData = {
+    username: "alice",
+    email: null,
+    password: "",
+    age: undefined
+};
+
+for (let field in formData) {
+    const error = validateFormField(formData[field], field);
+    if (error) {
+        console.log("✗ " + error);
+    } else {
+        console.log("✓ " + field + " is valid");
+    }
+}
+```
+
+</details>
+
+<details>
+<summary><b>Solution: Method 2 - Using Nullish Coalescing & Optional Chaining</b></summary>
+
+```javascript
+/*
+ * Experiment 23: Check undefined/null (Modern JavaScript approach)
+ * Using ES2020+ features: ?. and ?? operators
+ */
+
+// Nullish Coalescing (??) - returns right if left is null/undefined
+const username = null ?? "Guest";  // "Guest"
+const age = 0 ?? 18;               // 0 (0 is not nullish)
+
+// Optional Chaining (?.) - safely access nested properties
+const user = {
+    name: "Alice",
+    address: {
+        city: "New York"
+    }
+};
+
+console.log(user?.name);           // "Alice"
+console.log(user?.address?.city);  // "New York"
+console.log(user?.phone);          // undefined (doesn't throw)
+console.log(user?.address?.zip);   // undefined (doesn't throw)
+
+// Practical functions using modern syntax
+function getNestedValue(obj, path, defaultValue) {
+    // Split path by dots: "user.address.city"
+    const keys = path.split('.');
+    let result = obj;
+    
+    for (let key of keys) {
+        result = result?.[key];  // Optional chaining
+        if (result === undefined) break;
+    }
+    
+    return result ?? defaultValue;
+}
+
+function isValidAndNotEmpty(value) {
+    // Returns true only for meaningful values
+    return value !== null && 
+           value !== undefined && 
+           value !== '' &&
+           value !== 0 &&
+           !(Array.isArray(value) && value.length === 0) &&
+           !(typeof value === 'object' && Object.keys(value).length === 0);
+}
+
+function sanitizeUserData(userData) {
+    return {
+        username: userData?.username ?? "Anonymous",
+        email: userData?.contact?.email ?? "no-email@example.com",
+        age: userData?.age ?? 0,
+        active: userData?.active ?? false
+    };
+}
+
+// TEST CASES
+console.log("--- Test Case 1: Nullish Coalescing ---");
+console.log("null ?? 'default': " + (null ?? 'default'));
+console.log("undefined ?? 'default': " + (undefined ?? 'default'));
+console.log("0 ?? 'default': " + (0 ?? 'default'));
+console.log("'' ?? 'default': " + ('' ?? 'default'));
+
+console.log("\n--- Test Case 2: Optional Chaining ---");
+const deepObj = {a: {b: {c: "value"}}};
+const shallowObj = {x: 10};
+
+console.log("Deep object a.b.c: " + deepObj?.a?.b?.c);
+console.log("Deep object d.e.f: " + deepObj?.d?.e?.f);
+console.log("Shallow object x: " + shallowObj?.x);
+console.log("Shallow object y: " + shallowObj?.y);
+
+console.log("\n--- Test Case 3: Validation ---");
+const values = [null, undefined, 0, "", [], {}, "hello"];
+values.forEach(v => {
+    console.log("Value " + JSON.stringify(v) + " is valid: " + isValidAndNotEmpty(v));
+});
+
+console.log("\n--- Test Case 4: Safe Data Sanitization ---");
+const rawData1 = {username: "alice", contact: {email: "alice@ex.com"}};
+const rawData2 = null;
+const rawData3 = {username: null, active: true};
+
+console.log("Data 1: " + JSON.stringify(sanitizeUserData(rawData1)));
+console.log("Data 2: " + JSON.stringify(sanitizeUserData(rawData2)));
+console.log("Data 3: " + JSON.stringify(sanitizeUserData(rawData3)));
+```
+
+</details>
+
+**Key Learning Points:**
+- `===` strict equality for null/undefined checks (Method 1)
+- `??` nullish coalescing operator defaults only for null/undefined (Method 2)
+- `?.` optional chaining safely accesses nested properties
+- Understanding the difference: `undefined` (uninitialized), `null` (explicitly set), `0`/`""` (falsy but valid)
+- Safe data handling prevents runtime errors
+
+---
+
 ## 🏆 Learning Outcomes Achieved
 
 ### CO1: JavaScript Fundamentals ✅
@@ -490,6 +718,80 @@ Each student should complete:
 **File:** `Curriculum/Week-5/Day4-Day5-OOP-Integration-Final.md`  
 **Status:** Complete ✅  
 **Last Updated:** March 2026
+
+---
+
+## 📖 Week 5 Terminology Reference
+
+This table lists all technical terms introduced in Week 5, when they were first defined, and their definitions.
+
+| Term | Day Introduced | Definition | Example |
+|------|----------------|------------|---------|
+| **Class** | Day 1 | Blueprint/template for creating objects | `class Car { ... }` |
+| **Constructor** | Day 1 | Special method that runs when creating new instance | `constructor(name) { ... }` |
+| **Instance** | Day 1 | Individual object created from a class | `const myCar = new Car()` |
+| **Method** (OOP) | Day 1 | Function belonging to a class, defines behavior | `accelerate() { ... }` |
+| **Property** (OOP) | Day 1 | Variable belonging to a class, holds data | `this.speed = 0` |
+| **Prototype** | Day 1 | Hidden link to another object for property lookup | Every object has a prototype |
+| **Prototype chain** | Day 1 | Series of prototype links for property lookup | Instance → Class.prototype → Object.prototype |
+| **Syntactic sugar** | Day 1 | Cleaner syntax for existing functionality | Classes are sugar over prototypes |
+| **Encapsulation** | Day 1 | Bundling data and methods, controlling access | Private fields with `#` |
+| **Extends** | Day 2 | Keyword creating parent-child class relationship | `class Dog extends Animal` |
+| **Override** | Day 2 | Child method replacing parent method | Child's method used instead |
+| **Super** | Day 2 | Keyword accessing parent class | `super()` or `super.method()` |
+| **Inheritance** | Day 2 | Class inheriting from another class | Reuse code through hierarchy |
+| **Polymorphism** | Day 2 | Same interface, different behavior | `area()` in different shapes |
+| **Abstract class** | Day 2 | Template class never instantiated directly | Force method implementation |
+| **Symbol** | Day 2 | Unique, immutable primitive for property keys | `Symbol("description")` |
+| **Iterator** | Day 2 | Object providing sequential access with `next()` | Makes `for...of` work |
+| **Instanceof** | Day 2 | Operator testing object's class membership | `obj instanceof Class` |
+| **Optional chaining** | Day 3 | Safe nested property access with `?.` | `obj?.prop?.nested` |
+| **Nullish coalescing** | Day 3 | Default value for null/undefined with `??` | `value ?? "default"` |
+
+---
+
+## 🗺️ Week 5 Content Organization Map
+
+Understanding how each day's content connects:
+
+```
+Day 1: OOP Fundamentals & Classes
+    ↓ Foundation: Classes, constructors, instances
+    ├─→ Class syntax and structure
+    ├─→ Prototypes under the hood
+    ├─→ Encapsulation patterns
+    └─→ Private fields (#) and getters/setters
+
+Day 2: Inheritance & Polymorphism
+    ↓ Build on: Classes from Day 1
+    ├─→ Extends and super keywords
+    ├─→ Method overriding
+    ├─→ Polymorphism patterns
+    ├─→ Symbols and iterators
+    └─→ Instanceof operator
+
+Day 3: File Operations (Experiments 23-24)
+    ↓ Practical Application: Using OOP concepts
+    ├─→ File extension handling
+    ├─→ Type checking patterns
+    ├─→ Optional chaining
+    ├─→ Nullish coalescing
+    └─→ Final 2 experiments
+
+Days 4-5: OOP Integration Project
+    ↓ Synthesize: Everything from Week 5 + prior weeks
+    ├─→ Complete file management system
+    ├─→ Multiple class hierarchies
+    ├─→ All array methods (map, filter, reduce)
+    ├─→ String operations and validation
+    └─→ Professional error handling
+```
+
+**Key Progression:**
+1. **Learn OOP fundamentals** (Day 1): Classes, instances, encapsulation
+2. **Add complexity** (Day 2): Inheritance, polymorphism, advanced features
+3. **Apply to real problems** (Day 3): File operations with type safety
+4. **Integrate everything** (Days 4-5): Complete OOP application
 
 ---
 
