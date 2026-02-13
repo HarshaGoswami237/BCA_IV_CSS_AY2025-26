@@ -71,6 +71,8 @@ console.log(result);  // [1, 2, 3, 4, 5, 6, 7, 8]
 
 ### 3. Removing Duplicates
 
+**Set**: A built-in JavaScript object that stores unique values. A Set automatically removes duplicates — if you try to add a value that already exists, it won't be added again. Sets are useful for eliminating duplicate items from arrays. You can convert a Set back to an array using the spread operator `[...set]`.
+
 ```javascript
 // Method 1: Using Set
 const numbers = [1, 2, 2, 3, 4, 4, 5];
@@ -103,6 +105,13 @@ console.log(unique);  // ["apple", "banana", "cherry"]
 ---
 
 ### 4. Sorting Arrays
+
+**Comparator** (or **comparison function**): A function passed to the `sort()` method that defines the sort order. The comparator takes two elements (a and b) and returns:
+- A negative number if a should come before b
+- Zero if they're equal
+- A positive number if a should come after b
+
+For numbers, `(a, b) => a - b` sorts ascending, and `(a, b) => b - a` sorts descending.
 
 ```javascript
 // Numeric sorting (numbers)

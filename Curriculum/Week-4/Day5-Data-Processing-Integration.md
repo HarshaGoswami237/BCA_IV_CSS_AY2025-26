@@ -771,6 +771,78 @@ Time remaining: 00:01
 
 ---
 
+## 📖 Week 4 Terminology Reference
+
+This table lists all technical terms introduced in Week 4, when they were first defined, and their definitions.
+
+| Term | Day Introduced | Definition | Example |
+|------|----------------|------------|---------|
+| **Abstraction** | Day 1 | Hiding complex details behind a simpler interface | `console.log()` hides pixel rendering |
+| **Higher-order function** | Day 1 | Function that takes functions as arguments or returns functions | `array.map(fn)` |
+| **Callback** | Day 1 | Function passed to another function to be called later | `processArray(arr, callback)` |
+| **Unicode** | Day 1 | Universal character encoding standard assigning unique numbers to characters | Includes Latin, Arabic, Chinese, emojis |
+| **Character code** | Day 1 | Numeric value representing a character in UTF-16 encoding | "A" has code 65 |
+| **Code point** | Day 1 | Unique numeric identifier for a character in Unicode | "🐴" has code point 128052 |
+| **Aggregation** | Day 2 | Combining multiple values into a single result | Summing array elements |
+| **Accumulator** | Day 2 | Running result that gets updated each iteration in reduce() | Starts at initial value, builds result |
+| **Script (writing system)** | Day 2 | A writing system like Latin, Devanagari, Arabic, etc. | SCRIPTS dataset |
+| **Composability** | Day 2, Day 5 | Ability to combine simple functions to build complex operations | Chaining map, filter, reduce |
+| **Timestamp** | Day 3 | Milliseconds since January 1, 1970 00:00:00 UTC | `Date.now()` returns timestamp |
+| **Set** | Day 4 | JavaScript object storing unique values, auto-removes duplicates | `new Set([1, 2, 2])` becomes `{1, 2}` |
+| **Comparator** | Day 4 | Function defining sort order by comparing two elements | `(a, b) => a - b` for ascending |
+| **Pipeline** | Day 5 | Series of data transformations chained together | filter → map → reduce |
+
+---
+
+## 🗺️ Week 4 Content Organization Map
+
+Understanding how each day's content connects:
+
+```
+Day 1: Higher-Order Functions & map()
+    ↓ Foundation: Functions as values, callbacks
+    ├─→ Abstraction concept
+    ├─→ map() for transformation
+    └─→ Character codes and Unicode
+
+Day 2: filter() and reduce()
+    ↓ Build on: map() from Day 1
+    ├─→ filter() for selection
+    ├─→ reduce() for aggregation
+    ├─→ Combining all three methods
+    └─→ Script data set (real-world example)
+
+Day 3: Date & Time Operations
+    ↓ Practical Application: Using higher-order functions
+    ├─→ Date object and methods
+    ├─→ Timers (setTimeout, setInterval)
+    ├─→ Experiments 17-19
+    └─→ Real-world: Clock & countdown timer
+
+Day 4: Advanced Array Operations
+    ↓ Apply: All array methods together
+    ├─→ Removing elements (filter, splice)
+    ├─→ Merging arrays (concat, spread)
+    ├─→ Removing duplicates (Set, filter)
+    ├─→ Sorting (sort with comparators)
+    └─→ Experiments 20-22
+
+Day 5: Data Processing Pipeline & Integration
+    ↓ Synthesize: Everything from Week 4
+    ├─→ Complete data pipeline concept
+    ├─→ Error handling in pipelines
+    ├─→ Composability deep dive
+    ├─→ Text recognition (Unicode + SCRIPTS)
+    └─→ Final Integration Project: E-Commerce Dashboard
+```
+
+**Key Progression:**
+1. **Learn individual methods** (Days 1-2): map, filter, reduce
+2. **Apply to real operations** (Days 3-4): Dates, arrays, sorting
+3. **Integrate everything** (Day 5): Complete pipeline system
+
+---
+
 ## 🎊 Week 4 Summary
 
 | Day | Topic | Experiments |

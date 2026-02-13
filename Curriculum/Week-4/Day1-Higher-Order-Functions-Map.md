@@ -281,6 +281,14 @@ console.log(userInfo);
 
 ### 7. Strings and Character Codes
 
+Before working with character codes, let's define some key terms:
+
+**Unicode**: A universal character encoding standard that assigns a unique number to every character in virtually every writing system in the world. Unicode includes letters from Latin, Devanagari, Arabic, Chinese, and all other scripts, plus emojis, mathematical symbols, and more. It's what allows JavaScript to handle text in any language.
+
+**Character code** (or **code unit**): A numeric value representing a character in a specific encoding. In JavaScript strings, characters are stored using UTF-16 encoding, where most common characters use one 16-bit code unit.
+
+**Code point**: The unique numeric identifier assigned to a character in the Unicode standard. For example, the letter "A" has code point 65, "€" has code point 8364, and the emoji "🐴" has code point 128052. Some characters (like emojis) require multiple code units but have a single code point.
+
 Strings in JavaScript are sequences of **Unicode characters**. Each character has a numeric code called a **code point** — a unique number assigned to every character in the Unicode standard (which covers characters from virtually every writing system in the world).
 
 #### Character Codes

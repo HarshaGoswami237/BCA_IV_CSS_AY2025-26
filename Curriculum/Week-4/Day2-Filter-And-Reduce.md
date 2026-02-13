@@ -97,7 +97,9 @@ users.filter(u => u.age >= 18 && u.city === "New York");
 
 ### 3. Introduction to reduce()
 
-The **reduce()** method processes array elements and returns a SINGLE value.
+**Aggregation**: The process of combining multiple values into a single result. In programming, aggregation operations take a collection of data (like an array) and produce a summary (like a sum, average, count, or grouped object). The reduce() method is the primary tool for aggregation in JavaScript.
+
+The **reduce()** method processes array elements and returns a SINGLE value through aggregation.
 
 **Syntax:**
 ```javascript

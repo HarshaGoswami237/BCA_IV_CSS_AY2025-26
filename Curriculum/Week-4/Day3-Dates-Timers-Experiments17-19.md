@@ -12,6 +12,8 @@
 
 The **Date** object represents a specific moment in time.
 
+**Timestamp**: A numeric value representing a specific point in time, measured in milliseconds since January 1, 1970, 00:00:00 UTC (also known as the "Unix epoch" or "epoch time"). Timestamps are useful for date calculations, comparisons, and storage because they're just numbers. For example, the timestamp 1740057045000 represents a specific moment in February 2026.
+
 ```javascript
 // Create a date
 const today = new Date();
