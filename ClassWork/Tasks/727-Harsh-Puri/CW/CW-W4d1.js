@@ -1,4 +1,4 @@
-//Apply multiple transformation in sequence (chaining map() calls)
+// Apply multiple transformation in sequence (chaining map() calls)
 
 let number = [1,2,3,4,5,6];
 
