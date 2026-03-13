@@ -21,7 +21,7 @@ if(remain <0){
     let remainMinutes = remain % (1000*60 *60 *24) % (1000*60 *60 ) %  (1000*60 )
 
 
-    let sec =  Math.floor( remainMinutes/(1000)) ; //Seconds
+    let sec =  Math.floor( remainMinutes/(1000)) ; //Secons
 
 return {"days": days,"hours":hours , "minutes": minutes ,"sec":sec};
 
