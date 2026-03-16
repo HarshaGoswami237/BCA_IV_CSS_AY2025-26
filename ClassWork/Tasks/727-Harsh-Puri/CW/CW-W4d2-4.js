@@ -61,7 +61,7 @@ const merged =arr.concat(arr2)
     console.log("Array 1 before merge : ",arr1)
     console.log("Array 2 before merge : ",arr2)
     console.log("Array  After merge : ",merged)
-
+ 
 
 //Method 2: spread operator
 console.log("\n\tMethod 2: spread operator \n")
