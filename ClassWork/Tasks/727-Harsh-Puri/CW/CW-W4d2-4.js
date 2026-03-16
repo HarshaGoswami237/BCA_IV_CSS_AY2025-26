@@ -99,7 +99,7 @@ console.log("\n\tMethod 1: using Set \n")
 
 
 //Method 2: using filter()
-        console.log("\n\tMethod 2: using filter \n")
+        console.log("\n\tMethod 2: using filter() \n")
 
  const  unq = nums.filter((number,idx ) => nums.indexOf(number) == idx  )
 
@@ -107,6 +107,7 @@ console.log("\n\tMethod 1: using Set \n")
         console.log("Array with unique Value  by filter: ",unq)
 
  //Method 3: using reduce()
+        console.log("\n\tMethod 3: using reduce() \n")
         const rd_unique =  nums.reduce( ( acc,num )=>  {
             if(!acc.includes(num)){
         acc.push()
@@ -114,16 +115,56 @@ console.log("\n\tMethod 1: using Set \n")
             return acc
     }, [] )
         console.log("Orignal Array : ",nums) 
-        console.log("Array with unique Value  by filter: ",rd_unique)
+        console.log("Array with unique Value  by reduce: ",rd_unique)
 
 //4. sorting arrays
-
+     console.log("\t ===== Sorting Arrays =====\n")
 //numeric sorting
+    console.log("\n\tMethod 1: using sort() \n")
+
+    const OG_Arr = [23,45,49,42,13,53,66]
+    const SORTED = [...OG_Arr].sort((a,b)=> a-b)
+
+     console.log("Orignal Array : ",OG_Arr) 
+        console.log("Array with unique Value  by  Sort(): ",SORTED) 
+
 //Reverse order sorting
+     console.log("\n\tMethod 2: using sort() for descending \n")
+
+    const Des_Num = [23,45,49,42,13,53,66]
+    const Des_Sorted = [...Des_Num].sort((a,b)=> b-a)
+
+        console.log("Orignal Array : ",Des_Num) 
+        console.log("Array with reverse sort() ",Des_Sorted)
+
 //string sorting
+     console.log("\n\tMethod 3:  sort() Strings (Alphabet) \n")
+    const OG_veggie = ["Potato", "apple", "mango" , "Cabbage", "Bringle","Apple" ,'PoTaTO']
+
+       console.log("Orignal Array : ",OG_veggie) 
+       const Sort_Veggie = OG_veggie.sort()
+       console.log("Veggie Sort : ",Sort_Veggie)
+
 // case insensitive
+    const sortedVeggieIC =  OG_veggie.sort((a,b) => a.toLowerCase().localeCompare(b.toLowerCase()))     
+    console.log("Sorted veggies using localeCompare(): Case insensitive: ", sortedVeggieIC)
+    const sortedVeggieNOIC = OG_veggie.sort((a,b) => a.localeCompare(b))    
+    console.log("Sorted veggies using localeCompare(): Case sensitive :", sortedVeggieNOIC)
 
 //5. sorting objectss
+const students = [
+    {name:"Ronin" , marks:78},
+    {name:"Zoro" , marks:34},
+    {name:"Batman" , marks:85},
+    {name:"Franky" , marks:24},
+    {name:"Robin" , marks:91},
+
+]
 //sort by property
+
 //sort in ascending order (numbers)
+const byMarks =students.sort((a,b) =>b.marks-a.marks)
+console.log("sorted object by  makrs: ",byMarks)
 //sort by name
+const byName = students.sort((a,b)=> a.name.localeCompare(b.name))
+console.log("sorted object by  name: ",byName)
